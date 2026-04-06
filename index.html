@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>快速翻译 - 百度翻译API</title>
+    <title>快速翻译</title>
     <style>
         :root {
             --bg: #f0f2f5;
@@ -15,8 +15,6 @@
             --border: #e5e7eb;
             --textarea-bg: #f9fafb;
             --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            --success: #10b981;
-            --warning: #f59e0b;
         }
 
         [data-theme="dark"] {
@@ -31,7 +29,11 @@
             --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -59,18 +61,15 @@
             letter-spacing: -0.5px;
         }
 
-        header h1 span { color: var(--primary); }
+        header h1 span {
+            color: var(--primary);
+        }
 
-        .header-actions {
+        .theme-toggle {
             position: absolute;
             right: 0;
             top: 50%;
             transform: translateY(-50%);
-            display: flex;
-            gap: 8px;
-        }
-
-        .header-btn {
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text);
@@ -85,7 +84,9 @@
             transition: all 0.2s;
         }
 
-        .header-btn:hover { border-color: var(--primary); }
+        .theme-toggle:hover {
+            border-color: var(--primary);
+        }
 
         .card {
             background: var(--card-bg);
@@ -94,85 +95,6 @@
             overflow: hidden;
         }
 
-        /* === 设置面板 === */
-        .settings-panel {
-            display: none;
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            background: var(--textarea-bg);
-        }
-
-        .settings-panel.show { display: block; }
-
-        .settings-panel h3 {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .settings-row {
-            display: flex;
-            gap: 12px;
-            align-items: flex-end;
-        }
-
-        .settings-row .field {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .settings-row label {
-            font-size: 12px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .settings-row input {
-            background: var(--card-bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-            font-family: 'Courier New', monospace;
-            transition: border 0.2s;
-        }
-
-        .settings-row input:focus { border-color: var(--primary); }
-
-        .save-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-            height: 37px;
-        }
-
-        .save-btn:hover { background: var(--primary-hover); }
-
-        .status-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--warning);
-        }
-
-        .status-dot.connected { background: var(--success); }
-
-        /* === 语言栏 === */
         .lang-bar {
             display: flex;
             align-items: center;
@@ -195,7 +117,9 @@
             transition: border 0.2s;
         }
 
-        .lang-bar select:focus { border-color: var(--primary); }
+        .lang-bar select:focus {
+            border-color: var(--primary);
+        }
 
         .swap-btn {
             background: var(--primary);
@@ -218,7 +142,6 @@
             transform: rotate(180deg);
         }
 
-        /* === 编辑区 === */
         .editor-area {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -226,8 +149,9 @@
         }
 
         @media (max-width: 640px) {
-            .editor-area { grid-template-columns: 1fr; }
-            .settings-row { flex-direction: column; }
+            .editor-area {
+                grid-template-columns: 1fr;
+            }
         }
 
         .panel {
@@ -236,7 +160,9 @@
             flex-direction: column;
         }
 
-        .panel:first-child { border-right: 1px solid var(--border); }
+        .panel:first-child {
+            border-right: 1px solid var(--border);
+        }
 
         @media (max-width: 640px) {
             .panel:first-child {
@@ -260,7 +186,9 @@
             font-family: inherit;
         }
 
-        .panel textarea::placeholder { color: var(--text-secondary); }
+        .panel textarea::placeholder {
+            color: var(--text-secondary);
+        }
 
         .panel-footer {
             display: flex;
@@ -274,7 +202,10 @@
             color: var(--text-secondary);
         }
 
-        .panel-actions { display: flex; gap: 4px; }
+        .panel-actions {
+            display: flex;
+            gap: 4px;
+        }
 
         .icon-btn {
             background: none;
@@ -296,7 +227,6 @@
             color: var(--primary);
         }
 
-        /* === 操作栏 === */
         .action-bar {
             display: flex;
             justify-content: center;
@@ -324,7 +254,9 @@
             transform: translateY(-1px);
         }
 
-        .translate-btn:active { transform: translateY(0); }
+        .translate-btn:active {
+            transform: translateY(0);
+        }
 
         .translate-btn:disabled {
             opacity: 0.6;
@@ -341,9 +273,10 @@
             animation: spin 0.6s linear infinite;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
-        /* === Toast === */
         .toast {
             position: fixed;
             bottom: 32px;
@@ -372,6 +305,7 @@
             color: var(--text-secondary);
         }
 
+        /* Keyboard shortcut hint */
         .shortcut-hint {
             font-size: 12px;
             color: var(--text-secondary);
@@ -393,68 +327,45 @@
     <div class="container">
         <header>
             <h1>⚡ 快速<span>翻译</span></h1>
-            <div class="header-actions">
-                <button class="header-btn" onclick="toggleSettings()" title="API 设置">⚙️</button>
-                <button class="header-btn" onclick="toggleTheme()" title="切换主题">🌙</button>
-            </div>
+            <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">🌙</button>
         </header>
 
         <div class="card">
-            <!-- 设置面板 -->
-            <div class="settings-panel" id="settingsPanel">
-                <h3><span class="status-dot" id="statusDot"></span> 百度翻译 API 配置</h3>
-                <div class="settings-row">
-                    <div class="field">
-                        <label>APP ID</label>
-                        <input type="text" id="appIdInput" placeholder="输入你的 APP ID">
-                    </div>
-                    <div class="field">
-                        <label>密钥（Secret Key）</label>
-                        <input type="password" id="secretInput" placeholder="输入你的密钥">
-                    </div>
-                    <button class="save-btn" onclick="saveConfig()">保存</button>
-                </div>
-            </div>
-
-            <!-- 语言栏 -->
             <div class="lang-bar">
                 <select id="sourceLang">
                     <option value="auto">自动检测</option>
-                    <option value="zh">中文</option>
-                    <option value="en">English</option>
-                    <option value="jp">日本語</option>
-                    <option value="kor">한국어</option>
-                    <option value="fra">Français</option>
+                    <option value="zh-CN">中文（简体）</option>
+                    <option value="zh-TW">中文（繁体）</option>
+                    <option value="en-US">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="fr">Français</option>
                     <option value="de">Deutsch</option>
-                    <option value="spa">Español</option>
+                    <option value="es">Español</option>
                     <option value="ru">Русский</option>
                     <option value="pt">Português</option>
                     <option value="it">Italiano</option>
-                    <option value="ara">العربية</option>
-                    <option value="th">ไทย</option>
-                    <option value="vie">Tiếng Việt</option>
+                    <option value="ar">العربية</option>
                 </select>
 
                 <button class="swap-btn" onclick="swapLangs()" title="交换语言">⇄</button>
 
                 <select id="targetLang">
-                    <option value="en">English</option>
-                    <option value="zh">中文</option>
-                    <option value="jp">日本語</option>
-                    <option value="kor">한국어</option>
-                    <option value="fra">Français</option>
+                    <option value="en-US">English</option>
+                    <option value="zh-CN">中文（简体）</option>
+                    <option value="zh-TW">中文（繁体）</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="fr">Français</option>
                     <option value="de">Deutsch</option>
-                    <option value="spa">Español</option>
+                    <option value="es">Español</option>
                     <option value="ru">Русский</option>
                     <option value="pt">Português</option>
                     <option value="it">Italiano</option>
-                    <option value="ara">العربية</option>
-                    <option value="th">ไทย</option>
-                    <option value="vie">Tiếng Việt</option>
+                    <option value="ar">العربية</option>
                 </select>
             </div>
 
-            <!-- 编辑区 -->
             <div class="editor-area">
                 <div class="panel">
                     <textarea id="sourceText" placeholder="输入要翻译的文本..." autofocus></textarea>
@@ -486,20 +397,13 @@
         <p class="shortcut-hint">按 <kbd>Ctrl</kbd> + <kbd>Enter</kbd> 快速翻译</p>
 
         <footer>
-            自用快速翻译工具 · Powered by 百度翻译 API（免费 · 不限量）
+            自用快速翻译工具 · Powered by MyMemory API
         </footer>
     </div>
 
     <div class="toast" id="toast"></div>
 
-    <!-- MD5 库（百度翻译签名需要） -->
     <script>
-        // MD5 实现（精简版）
-        var MD5=function(r){function n(r,n){var t,o,e,u,f;return e=2147483648&r,u=2147483648&n,f=(1073741823&r)+(1073741823&n),(t=1073741824&r)&(o=1073741824&n)?2147483648^f^e^u:t|o?1073741824&f?3221225472^f^e^u:1073741824^f^e^u:f^e^u}function t(r,t,o,e,u,f,a){return r=n(r,n(n(function(r,n,t){return r&n|~r&t}(t,o,e),u),a)),n(r<<f|r>>>32-f,t)}function o(r,t,o,e,u,f,a){return r=n(r,n(n(function(r,n,t){return r&t|n&~t}(t,o,e),u),a)),n(r<<f|r>>>32-f,t)}function e(r,t,o,e,u,f,a){return r=n(r,n(n(function(r,n,t){return r^n^t}(t,o,e),u),a)),n(r<<f|r>>>32-f,t)}function u(r,t,o,e,u,f,a){return r=n(r,n(n(function(r,n,t){return n^(r|~t)}(t,o,e),u),a)),n(r<<f|r>>>32-f,t)}function f(r){var n,t="",o="";for(n=0;n<=3;n++)t+=(o="0"+(r>>>8*n&255).toString(16)).substr(o.length-2,2);return t}var a,i,C,g,h,d,v,S,m,l=Array();for(l=function(r){for(var n,t=r.length,o=t+8,e=16*((o-o%64)/64+1),u=Array(e-1),f=0,a=0;a<t;)f=a%4*8,u[n=(a-a%4)/4]=u[n]|r.charCodeAt(a)<<f,a++;return u[(a-a%4)/4]|=128<<a%4*8,u[e-2]=t<<3,u[e-1]=t>>>29,u}(r=function(r){r=r.replace(/\r\n/g,"\n");for(var n="",t=0;t<r.length;t++){var o=r.charCodeAt(t);o<128?n+=String.fromCharCode(o):o>127&&o<2048?(n+=String.fromCharCode(o>>6|192),n+=String.fromCharCode(63&o|128)):(n+=String.fromCharCode(o>>12|224),n+=String.fromCharCode(o>>6&63|128),n+=String.fromCharCode(63&o|128))}return n}(r)),d=1732584193,v=4023233417,S=2562383102,m=271733878,a=0;a<l.length;a+=16)i=d,C=v,g=S,h=m,d=t(d,v,S,m,l[a+0],7,3614090360),m=t(m,d,v,S,l[a+1],12,3905402710),S=t(S,m,d,v,l[a+2],17,606105819),v=t(v,S,m,d,l[a+3],22,3250441966),d=t(d,v,S,m,l[a+4],7,4118548399),m=t(m,d,v,S,l[a+5],12,1200080426),S=t(S,m,d,v,l[a+6],17,2821735955),v=t(v,S,m,d,l[a+7],22,4249261313),d=t(d,v,S,m,l[a+8],7,1770035416),m=t(m,d,v,S,l[a+9],12,2336552879),S=t(S,m,d,v,l[a+10],17,4294925233),v=t(v,S,m,d,l[a+11],22,2304563134),d=t(d,v,S,m,l[a+12],7,1804603682),m=t(m,d,v,S,l[a+13],12,4254626195),S=t(S,m,d,v,l[a+14],17,2792965006),v=t(v,S,m,d,l[a+15],22,1236535329),d=o(d,v,S,m,l[a+1],5,4129170786),m=o(m,d,v,S,l[a+6],9,3225465664),S=o(S,m,d,v,l[a+11],14,643717713),v=o(v,S,m,d,l[a+0],20,3921069994),d=o(d,v,S,m,l[a+5],5,3593408605),m=o(m,d,v,S,l[a+10],9,38016083),S=o(S,m,d,v,l[a+15],14,3634488961),v=o(v,S,m,d,l[a+4],20,3889429448),d=o(d,v,S,m,l[a+9],5,568446438),m=o(m,d,v,S,l[a+14],9,3275163606),S=o(S,m,d,v,l[a+3],14,4107603335),v=o(v,S,m,d,l[a+8],20,1163531501),d=o(d,v,S,m,l[a+13],5,2850285829),m=o(m,d,v,S,l[a+2],9,4243563512),S=o(S,m,d,v,l[a+7],14,1735328473),v=o(v,S,m,d,l[a+12],20,2368359562),d=e(d,v,S,m,l[a+5],4,4294588738),m=e(m,d,v,S,l[a+8],11,2272392833),S=e(S,m,d,v,l[a+11],16,1839030562),v=e(v,S,m,d,l[a+14],23,4259657740),d=e(d,v,S,m,l[a+1],4,2763975236),m=e(m,d,v,S,l[a+4],11,1272893353),S=e(S,m,d,v,l[a+7],16,4139469664),v=e(v,S,m,d,l[a+10],23,3200236656),d=e(d,v,S,m,l[a+13],4,681279174),m=e(m,d,v,S,l[a+0],11,3936430074),S=e(S,m,d,v,l[a+3],16,3572445317),v=e(v,S,m,d,l[a+6],23,76029189),d=e(d,v,S,m,l[a+9],4,3654602809),m=e(m,d,v,S,l[a+12],11,3873151461),S=e(S,m,d,v,l[a+15],16,530742520),v=e(v,S,m,d,l[a+2],23,3299628645),d=u(d,v,S,m,l[a+0],6,4096336452),m=u(m,d,v,S,l[a+7],10,1126891415),S=u(S,m,d,v,l[a+14],15,2878612391),v=u(v,S,m,d,l[a+5],21,4237533241),d=u(d,v,S,m,l[a+12],6,1700485571),m=u(m,d,v,S,l[a+3],10,2399980690),S=u(S,m,d,v,l[a+10],15,4293915773),v=u(v,S,m,d,l[a+1],21,2240044497),d=u(d,v,S,m,l[a+8],6,1873313359),m=u(m,d,v,S,l[a+15],10,4264355552),S=u(S,m,d,v,l[a+6],15,2734768916),v=u(v,S,m,d,l[a+13],21,1309151649),d=u(d,v,S,m,l[a+4],6,4149444226),m=u(m,d,v,S,l[a+11],10,3174756917),S=u(S,m,d,v,l[a+2],15,718787259),v=u(v,S,m,d,l[a+9],21,3951481745),d=n(d,i),v=n(v,C),S=n(S,g),m=n(m,h);return(f(d)+f(v)+f(S)+f(m)).toLowerCase()};
-    </script>
-
-    <script>
-        // ========== DOM 元素 ==========
         const sourceText = document.getElementById('sourceText');
         const targetText = document.getElementById('targetText');
         const sourceLang = document.getElementById('sourceLang');
@@ -507,62 +411,13 @@
         const translateBtn = document.getElementById('translateBtn');
         const charCount = document.getElementById('charCount');
         const resultInfo = document.getElementById('resultInfo');
-        const appIdInput = document.getElementById('appIdInput');
-        const secretInput = document.getElementById('secretInput');
-        const statusDot = document.getElementById('statusDot');
 
-        // ========== 配置管理 ==========
-        function loadConfig() {
-            const appid = localStorage.getItem('baidu_appid') || '';
-            const secret = localStorage.getItem('baidu_secret') || '';
-            appIdInput.value = appid;
-            secretInput.value = secret;
-            updateStatus();
-            return { appid, secret };
-        }
-
-        function saveConfig() {
-            const appid = appIdInput.value.trim();
-            const secret = secretInput.value.trim();
-            if (!appid || !secret) {
-                showToast('请填写完整的 APP ID 和密钥');
-                return;
-            }
-            localStorage.setItem('baidu_appid', appid);
-            localStorage.setItem('baidu_secret', secret);
-            updateStatus();
-            showToast('✓ 配置已保存');
-        }
-
-        function updateStatus() {
-            const appid = localStorage.getItem('baidu_appid');
-            const secret = localStorage.getItem('baidu_secret');
-            if (appid && secret) {
-                statusDot.classList.add('connected');
-            } else {
-                statusDot.classList.remove('connected');
-            }
-        }
-
-        function toggleSettings() {
-            const panel = document.getElementById('settingsPanel');
-            panel.classList.toggle('show');
-        }
-
-        // 初始化加载配置
-        loadConfig();
-
-        // 首次使用自动展开设置
-        if (!localStorage.getItem('baidu_appid')) {
-            document.getElementById('settingsPanel').classList.add('show');
-        }
-
-        // ========== 字符计数 ==========
+        // 字符计数
         sourceText.addEventListener('input', () => {
             charCount.textContent = sourceText.value.length;
         });
 
-        // ========== 快捷键 ==========
+        // Ctrl+Enter 快捷翻译
         sourceText.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'Enter') {
                 e.preventDefault();
@@ -570,7 +425,7 @@
             }
         });
 
-        // ========== 百度翻译核心 ==========
+        // 翻译函数
         async function translate() {
             const text = sourceText.value.trim();
             if (!text) {
@@ -578,88 +433,38 @@
                 return;
             }
 
-            const appid = localStorage.getItem('baidu_appid');
-            const secret = localStorage.getItem('baidu_secret');
+            const src = sourceLang.value === 'auto' ? 'autodetect' : sourceLang.value.split('-')[0];
+            const tgt = targetLang.value.split('-')[0];
 
-            if (!appid || !secret) {
-                showToast('请先配置 API 密钥（点击 ⚙️）');
-                document.getElementById('settingsPanel').classList.add('show');
-                return;
-            }
-
-            const from = sourceLang.value;
-            const to = targetLang.value;
-            const salt = Date.now().toString();
-
-            // 百度翻译签名：MD5(appid + q + salt + secret)
-            const sign = MD5(appid + text + salt + secret);
+            // 处理中文变体
+            const srcCode = sourceLang.value === 'auto' ? 'autodetect' :
+                            sourceLang.value === 'zh-CN' ? 'zh' :
+                            sourceLang.value === 'zh-TW' ? 'zh' :
+                            sourceLang.value.split('-')[0];
+            const tgtCode = targetLang.value === 'zh-CN' ? 'zh' :
+                            targetLang.value === 'zh-TW' ? 'zh' :
+                            targetLang.value.split('-')[0];
 
             setLoading(true);
 
             try {
-                // 使用 JSONP 方式避免 CORS 问题
-                const params = new URLSearchParams({
-                    q: text,
-                    from: from,
-                    to: to,
-                    appid: appid,
-                    salt: salt,
-                    sign: sign
-                });
+                const langpair = `${srcCode}|${tgtCode}`;
+                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${langpair}`;
 
-                const url = `https://fanyi-api.baidu.com/api/trans/vip/translate?${params.toString()}`;
-
-                // 尝试 fetch（部分浏览器/环境可能有 CORS 限制）
-                const response = await fetch(url, {
-                    method: 'GET',
-                    // 百度翻译 API 支持 CORS
-                });
-
+                const response = await fetch(url);
                 const data = await response.json();
 
-                if (data.error_code) {
-                    const errorMsg = {
-                        '52001': '请求超时，请重试',
-                        '52002': '系统错误，请重试',
-                        '52003': '未授权，请检查 APP ID',
-                        '54000': '必填参数为空',
-                        '54001': '签名错误，请检查密钥是否正确',
-                        '54003': '访问频率受限（1次/秒），请稍后重试',
-                        '54004': '账户余额不足',
-                        '54005': '长query请求频繁，请稍后重试',
-                        '58000': '客户端IP非法，请检查服务器IP白名单',
-                        '58001': '译文语言方向不支持',
-                        '58002': '服务关闭，请前往管理控制台开启',
-                        '90107': '认证未通过或未生效',
-                    }[data.error_code] || `错误码: ${data.error_code}`;
-                    showToast(errorMsg);
+                if (data.responseStatus === 200) {
+                    targetText.value = data.responseData.translatedText;
+                    resultInfo.textContent = `翻译完成`;
+                } else {
                     targetText.value = '';
+                    showToast('翻译失败，请重试');
                     resultInfo.textContent = '';
-                } else if (data.trans_result) {
-                    const result = data.trans_result.map(item => item.dst).join('\n');
-                    targetText.value = result;
-
-                    // 显示检测到的源语言
-                    const langNames = {
-                        'zh': '中文', 'en': '英语', 'jp': '日语', 'kor': '韩语',
-                        'fra': '法语', 'de': '德语', 'spa': '西班牙语', 'ru': '俄语',
-                        'pt': '葡萄牙语', 'it': '意大利语', 'ara': '阿拉伯语',
-                        'th': '泰语', 'vie': '越南语'
-                    };
-                    const detectedLang = langNames[data.from] || data.from;
-                    resultInfo.textContent = from === 'auto'
-                        ? `翻译完成 · 检测为${detectedLang}`
-                        : '翻译完成';
                 }
             } catch (error) {
                 console.error('翻译错误:', error);
-
-                // fetch 失败时尝试 JSONP
-                if (error.message && error.message.includes('CORS')) {
-                    showToast('CORS 受限，建议部署到服务器使用');
-                } else {
-                    showToast('网络错误，请检查连接');
-                }
+                showToast('网络错误，请检查连接');
                 resultInfo.textContent = '';
             } finally {
                 setLoading(false);
@@ -673,7 +478,7 @@
                 : '翻译';
         }
 
-        // ========== 交换语言 ==========
+        // 交换语言
         function swapLangs() {
             if (sourceLang.value === 'auto') {
                 showToast('请先选择源语言');
@@ -683,13 +488,14 @@
             sourceLang.value = targetLang.value;
             targetLang.value = temp;
 
+            // 同时交换文本
             const tempText = sourceText.value;
             sourceText.value = targetText.value;
             targetText.value = tempText;
             charCount.textContent = sourceText.value.length;
         }
 
-        // ========== 清空 ==========
+        // 清空输入
         function clearSource() {
             sourceText.value = '';
             targetText.value = '';
@@ -698,7 +504,7 @@
             sourceText.focus();
         }
 
-        // ========== 复制 ==========
+        // 复制结果
         function copyResult() {
             const text = targetText.value.trim();
             if (!text) {
@@ -708,34 +514,36 @@
             navigator.clipboard.writeText(text).then(() => {
                 showToast('✓ 已复制到剪贴板');
             }).catch(() => {
+                // fallback
                 targetText.select();
                 document.execCommand('copy');
                 showToast('✓ 已复制到剪贴板');
             });
         }
 
-        // ========== 主题 ==========
+        // 主题切换
         function toggleTheme() {
             const isDark = document.body.getAttribute('data-theme') === 'dark';
             document.body.setAttribute('data-theme', isDark ? '' : 'dark');
-            document.querySelector('.header-actions').children[1].textContent = isDark ? '🌙' : '☀️';
+            document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
             localStorage.setItem('theme', isDark ? 'light' : 'dark');
         }
 
+        // 加载主题
         (function loadTheme() {
             const saved = localStorage.getItem('theme');
             if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.body.setAttribute('data-theme', 'dark');
-                document.querySelector('.header-actions').children[1].textContent = '☀️';
+                document.querySelector('.theme-toggle').textContent = '☀️';
             }
         })();
 
-        // ========== Toast ==========
+        // Toast 提示
         function showToast(msg) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
     </script>
 </body>
