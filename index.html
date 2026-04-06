@@ -607,7 +607,7 @@
                     sign: sign
                 });
 
-                const url = `https://fanyi-api.baidu.com/api/trans/vip/translate?${params.toString()}`;
+                const url = `https://corsproxy.io/?${encodeURIComponent('https://fanyi-api.baidu.com/api/trans/vip/translate?' + params.toString())}`;
 
                 // 尝试 fetch（部分浏览器/环境可能有 CORS 限制）
                 const response = await fetch(url, {
